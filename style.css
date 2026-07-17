@@ -591,3 +591,104 @@ font-size:18px;
 }
 
 }
+/* Hearts */
+.heart{
+position:fixed;
+bottom:-40px;
+width:18px;
+height:18px;
+background:#ff4da6;
+transform:rotate(45deg);
+animation:heartFloat linear forwards;
+box-shadow:0 0 15px hotpink;
+}
+
+.heart::before,
+.heart::after{
+content:"";
+position:absolute;
+width:18px;
+height:18px;
+background:#ff4da6;
+border-radius:50%;
+}
+
+.heart::before{
+top:-9px;
+left:0;
+}
+
+.heart::after{
+left:-9px;
+top:0;
+}
+
+/* Roses */
+.rose{
+position:fixed;
+top:-40px;
+width:18px;
+height:18px;
+border-radius:50%;
+background:#ff003c;
+box-shadow:0 0 20px red;
+animation:roseFall linear forwards;
+}
+
+/* Tears */
+.tear{
+position:fixed;
+top:-20px;
+width:8px;
+height:18px;
+background:cyan;
+border-radius:50%;
+animation:tearFall linear forwards;
+}
+
+/* Sparkles */
+.spark{
+position:fixed;
+width:4px;
+height:4px;
+border-radius:50%;
+background:white;
+box-shadow:0 0 12px cyan;
+animation:sparkFade 2.5s linear forwards;
+}
+
+/* Animations */
+@keyframes heartFloat{
+0%{
+transform:translateY(0) rotate(45deg);
+opacity:1;
+}
+100%{
+transform:translateY(-120vh) rotate(45deg);
+opacity:0;
+}
+}
+
+@keyframes roseFall{
+0%{
+transform:translateY(0) rotate(0deg);
+}
+100%{
+transform:translateY(120vh) rotate(720deg);
+opacity:0;
+}
+}
+
+@keyframes tearFall{
+100%{
+transform:translateY(120vh);
+opacity:0;
+}
+}
+
+@keyframes sparkFade{
+100%{
+transform:scale(3);
+opacity:0;
+}
+}
