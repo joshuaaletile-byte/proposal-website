@@ -1,72 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Haliyah ❤️</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>❤️ Haliyah ❤️</title>
+
+<meta name="theme-color" content="#000000">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
 
 </head>
 
 <body>
 
-<!-- Background -->
-<div class="background"></div>
-<div class="overlay"></div>
+<!-- ==========================
+BACKGROUND
+========================== -->
 
-<!-- HUD -->
-<div class="hud-grid"></div>
-<div class="scan-line"></div>
+<div id="background"></div>
 
-<!-- Music -->
-<button id="musicBtn">🔊</button>
+<div id="darkOverlay"></div>
 
-<audio id="bgMusic" loop>
-    <source src="music/song.mp3" type="audio/mpeg">
+<div id="hudGrid"></div>
+
+<div id="scanLine"></div>
+
+<div id="particles"></div>
+
+<!-- ==========================
+TOP BAR
+========================== -->
+
+<header id="topBar">
+
+<div id="logo">
+
+PH03NIX
+
+</div>
+
+<div id="controls">
+
+<button id="musicBtn">
+
+🔊
+
+</button>
+
+</div>
+
+</header>
+
+<!-- ==========================
+BACKGROUND MUSIC
+========================== -->
+
+<audio
+id="bgMusic"
+loop>
+
+<source
+src="music/song.mp3"
+type="audio/mpeg">
+
 </audio>
 
-<!-- Boot Screen -->
-<section id="boot">
+<!-- ==========================
+BOOT SCREEN
+========================== -->
 
-<h1>PH03NIX LOVE PROTOCOL</h1>
+<section id="bootScreen">
+
+<div id="bootBox">
+
+<h1>
+
+PH03NIX LOVE PROTOCOL
+
+</h1>
 
 <div id="terminal">
 
-<p class="line">Initializing System...</p>
+<p class="bootLine">
 
-<p class="line">Loading Memories...</p>
+Initializing System...
 
-<p class="line">Scanning Heart...</p>
+</p>
 
-<p class="line">Searching...</p>
+<p class="bootLine">
 
-<p class="line glow">Haliyah ❤️ Found</p>
+Loading Memory...
 
-<p class="line">Establishing Connection...</p>
+</p>
 
-<p class="line success">CONNECTED ✓</p>
+<p class="bootLine">
+
+Scanning Heart...
+
+</p>
+
+<p class="bootLine">
+
+Compatibility Check...
+
+</p>
+
+<p class="bootLine">
+
+Searching...
+
+</p>
+
+<p class="bootLine pink">
+
+❤️ HALIYAH FOUND ❤️
+
+</p>
+
+<p class="bootLine">
+
+Soul Connection...
+
+</p>
+
+<p class="bootLine green">
+
+100%
+
+</p>
+
+<p class="bootLine">
+
+Connection Successful ✓
+
+</p>
+
+</div>
 
 </div>
 
 </section>
 
-<!-- Main Proposal -->
-<section id="main">
+<!-- ==========================
+MAIN PROPOSAL
+========================== -->
 
-<h1 id="name"></h1>
+<section id="proposal">
 
-<h2 id="question"></h2>
+<div id="centerBox">
 
-<p id="subtitle"></p>
+<h1 id="girlName">
 
-<div class="buttons">
+</h1>
+
+<h2 id="question">
+
+</h2>
+
+<p id="subtitle">
+
+</p>
+
+<div id="buttonArea">
 
 <button id="yesBtn">
 
@@ -82,9 +194,14 @@ NO 💔
 
 </div>
 
+</div>
+
 </section>
 
-<!-- Celebration -->
+<!-- ==========================
+CELEBRATION
+========================== -->
+
 <section id="celebration">
 
 <h1>
@@ -101,25 +218,165 @@ Forever Begins Today
 
 </section>
 
-<!-- Love Letter -->
-<section id="letter">
+<!-- ==========================
+LOVE LETTER
+========================== -->
 
-<div class="paper">
+<section id="letterSection">
 
-<h2>Dear Haliyah ❤️</h2>
+<div id="letterPaper">
 
-<p id="letterText"></p>
+<h2>
+
+Dear Haliyah ❤️
+
+</h2>
+
+<p id="letterText">
+
+</p>
 
 </div>
 
 </section>
+<!-- ==========================
+PROPOSAL CERTIFICATE
+========================== -->
+
+<section id="certificateSection">
+
+    <div id="certificateCard">
+
+        <h1>❤️ OFFICIAL PROPOSAL ❤️</h1>
+
+        <h3>Presented To</h3>
+
+        <h2 id="certificateName">
+
+            Haliyah
+
+        </h2>
+
+        <p class="statusTitle">
+
+            Proposal Status
+
+        </p>
+
+        <h2 id="certificateStatus">
+
+            ACCEPTED ❤️
+
+        </h2>
+
+        <p>
+
+            Forever Begins Today
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ==========================
+ENDING SCREEN
+========================== -->
+
+<section id="endingScreen">
+
+    <div id="endingContent">
+
+        <h1>
+
+            Every Love Story Is Beautiful...
+
+        </h1>
+
+        <h2>
+
+            Ours Begins Today ❤️
+
+        </h2>
+
+        <button id="shareBtn">
+
+            Share Our Happiness
+
+        </button>
+
+        <button id="restartBtn">
+
+            Watch Again
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ==========================
+SECRET MESSAGE
+========================== -->
+
+<div id="secretMessage">
+
+    ❤️
+
+    You found my little secret.
+
+    No matter what happens,
+
+    you'll always be special to me.
+
+    ❤️
+
+</div>
+
+<!-- ==========================
+LOADING
+========================== -->
+
+<div id="loadingScreen">
+
+    <div class="loader"></div>
+
+    <p>
+
+        Preparing Something Beautiful...
+
+    </p>
+
+</div>
+
+<!-- ==========================
+FOOTER
+========================== -->
+
+<footer id="footer">
+
+    Designed With ❤️ By
+
+    <span>
+
+        PH03NIX
+
+    </span>
+
+</footer>
+
+<!-- ==========================
+SCRIPTS
+========================== -->
 
 <script src="voice.js"></script>
+
 <script src="effects.js"></script>
 
-<script type="module" src="firebase.js"></script>
+<script src="firebase.js"></script>
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
