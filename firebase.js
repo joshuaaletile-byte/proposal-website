@@ -1,70 +1,53 @@
 // ===============================
 // PH03NIX LOVE PROTOCOL
-// Firebase Configuration
+// Firebase Setup
 // ===============================
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+// Your HTML must include:
+// <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+// <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+// <script src="firebase.js"></script>
 
 const firebaseConfig = {
-
-apiKey: "AIzaSyASQlI-Ye0WEZW98bEGHS8xe6AXvtpjJLo",
-
-authDomain: "haliyah-proposal.firebaseapp.com",
-
-projectId: "haliyah-proposal",
-
-storageBucket: "haliyah-proposal.firebasestorage.app",
-
-messagingSenderId: "900293741051",
-
-appId: "1:900293741051:web:c638b94d2ed44a8631e35e"
-
+  apiKey: "AIzaSyASQlI-Ye0WEZW98bEGHS8xe6AXvtpjJLo",
+  authDomain: "haliyah-proposal.firebaseapp.com",
+  projectId: "haliyah-proposal",
+  storageBucket: "haliyah-proposal.firebasestorage.app",
+  messagingSenderId: "900293741051",
+  appId: "1:900293741051:web:c638b94d2ed44a8631e35e",
+  measurementId: "G-608WGH29W9"
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+const db = firebase.firestore();
 
-/* ==========================
-SAVE RESPONSE
-========================== */
+// Save YES response
+async function saveAnswer(data){
 
-window.saveAnswer = async function(data){
+    try{
 
-try{
+        await db.collection("responses").add({
 
-await addDoc(collection(db,"responses"),{
+            name:data.name,
+            answer:data.answer,
+            device:data.device,
+            browser:data.browser,
+            screen:data.screen,
+            time:new Date().toLocaleString(),
+            created:firebase.firestore.FieldValue.serverTimestamp()
 
-name:data.name,
+        });
 
-response:data.response,
+        console.log("Response Saved ❤️");
 
-time:data.time,
+    }catch(error){
 
-device:data.device,
+        console.error(error);
 
-screen:
-
-window.innerWidth+"x"+window.innerHeight,
-
-created:serverTimestamp()
-
-});
-
-console.log("Saved");
-
-}catch(err){
-
-console.error(err);
+    }
 
 }
 
-}
+window.saveAnswer = saveAnswer;
