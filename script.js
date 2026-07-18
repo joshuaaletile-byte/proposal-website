@@ -1,81 +1,103 @@
-/* =====================================
+/* ==========================================
    PH03NIX LOVE PROTOCOL
-   script.js (PART 1)
-===================================== */
+   script.js
+   BATCH 1
+==========================================*/
 
-const boot = document.getElementById("boot");
-const main = document.getElementById("main");
+/* ==========================
+GET ELEMENTS
+========================== */
+
+const bootScreen = document.getElementById("bootScreen");
+const proposal = document.getElementById("proposal");
 const celebration = document.getElementById("celebration");
-const letter = document.getElementById("letter");
+const letterSection = document.getElementById("letterSection");
+const certificateSection = document.getElementById("certificateSection");
+const endingScreen = document.getElementById("endingScreen");
 
-const nameText = document.getElementById("name");
-const questionText = document.getElementById("question");
+const girlName = document.getElementById("girlName");
+const question = document.getElementById("question");
 const subtitle = document.getElementById("subtitle");
 
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
-const music = document.getElementById("bgMusic");
+const bgMusic = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicBtn");
 
-let musicOn = false;
-let noCount = 0;
-let introFinished = false;
-
 /* ==========================
-   MUSIC
+VARIABLES
 ========================== */
 
-musicBtn.addEventListener("click", function(){
+let musicPlaying = false;
+let noCounter = 0;
 
-    if(musicOn){
+/* ==========================
+MUSIC CONTROL
+========================== */
 
-        music.pause();
-        musicBtn.innerHTML="🔊";
+musicBtn.addEventListener("click", async () => {
 
-    }else{
+    try{
 
-        music.play();
-        musicBtn.innerHTML="🔇";
+        if(!musicPlaying){
+
+            await bgMusic.play();
+
+            musicPlaying = true;
+
+            musicBtn.textContent = "🔇";
+
+        }else{
+
+            bgMusic.pause();
+
+            musicPlaying = false;
+
+            musicBtn.textContent = "🔊";
+
+        }
+
+    }catch(error){
+
+        console.log(error);
 
     }
-
-    musicOn=!musicOn;
 
 });
 
 /* ==========================
-   START EXPERIENCE
+BOOT SEQUENCE
 ========================== */
 
 window.addEventListener("load",()=>{
 
-    setTimeout(showProposal,8000);
+    setTimeout(showProposal,8500);
 
 });
 
 /* ==========================
-   SHOW PROPOSAL
+SHOW PROPOSAL
 ========================== */
 
 function showProposal(){
 
-    boot.style.opacity="0";
+    bootScreen.style.opacity="0";
 
     setTimeout(()=>{
 
-        boot.style.display="none";
+        bootScreen.style.display="none";
 
-        main.style.display="flex";
+        proposal.style.display="flex";
 
-        typeEverything();
+        beginTyping();
 
     },1000);
 
 }
 
 /* ==========================
-   TYPEWRITER
+TYPEWRITER
 ========================== */
 
 function typeWriter(element,text,speed,callback){
@@ -94,7 +116,11 @@ function typeWriter(element,text,speed,callback){
 
             clearInterval(timer);
 
-            if(callback) callback();
+            if(callback){
+
+                callback();
+
+            }
 
         }
 
@@ -103,14 +129,14 @@ function typeWriter(element,text,speed,callback){
 }
 
 /* ==========================
-   TYPE ALL TEXT
+BEGIN TYPING
 ========================== */
 
-function typeEverything(){
+function beginTyping(){
 
     typeWriter(
 
-        nameText,
+        girlName,
 
         "Haliyah ❤️",
 
@@ -120,7 +146,7 @@ function typeEverything(){
 
             typeWriter(
 
-                questionText,
+                question,
 
                 "Will You Marry Me?",
 
@@ -132,7 +158,7 @@ function typeEverything(){
 
                         subtitle,
 
-                        "Every heartbeat reminds me of you. Every smile gives me hope. Today I have only one question...",
+                        "Every heartbeat reminds me of you. Every smile gives me hope. Today, I have just one question...",
 
                         35
 
@@ -149,18 +175,18 @@ function typeEverything(){
 }
 
 /* ==========================
-   NO BUTTON ESCAPE
+NO BUTTON ESCAPE
 ========================== */
 
-function moveNo(){
+function moveNoButton(){
 
-    noCount++;
+    noCounter++;
 
-    const maxX=window.innerWidth-150;
-    const maxY=window.innerHeight-100;
+    const maxX = window.innerWidth - 180;
+    const maxY = window.innerHeight - 100;
 
-    const x=Math.random()*maxX;
-    const y=Math.random()*maxY;
+    const x = Math.random()*maxX;
+    const y = Math.random()*maxY;
 
     noBtn.style.position="fixed";
     noBtn.style.left=x+"px";
@@ -168,36 +194,26 @@ function moveNo(){
 
     createTear();
 
-    switch(noCount){
+    switch(noCounter){
 
         case 1:
-
-            noBtn.innerHTML="Really? 😢";
-            break;
+        noBtn.innerHTML="Really? 😢";
+        break;
 
         case 2:
-
-            noBtn.innerHTML="Think Again ❤️";
-            break;
+        noBtn.innerHTML="Think Again ❤️";
+        break;
 
         case 3:
-
-            noBtn.innerHTML="Too Slow 😜";
-            break;
+        noBtn.innerHTML="Too Slow 😜";
+        break;
 
         case 4:
-
-            noBtn.innerHTML="Catch Me 😂";
-            break;
-
-        case 5:
-
-            noBtn.innerHTML="Choose YES ❤️";
-            break;
+        noBtn.innerHTML="Catch Me 😂";
+        break;
 
         default:
-
-            noBtn.innerHTML="Impossible 😆";
+        noBtn.innerHTML="Choose YES ❤️";
 
     }
 
@@ -205,7 +221,7 @@ function moveNo(){
 
 /* Desktop */
 
-noBtn.addEventListener("mouseenter",moveNo);
+noBtn.addEventListener("mouseenter",moveNoButton);
 
 /* Mobile */
 
@@ -213,315 +229,285 @@ noBtn.addEventListener("touchstart",(e)=>{
 
     e.preventDefault();
 
-    moveNo();
+    moveNoButton();
 
 });
+/* ==========================================
+   SCRIPT.JS
+   BATCH 2
+==========================================*/
 
 /* ==========================
-   YES BUTTON
+YES BUTTON
 ========================== */
 
-yesBtn.addEventListener("click",()=>{
+yesBtn.addEventListener("click", async () => {
 
-    if(typeof confetti!=="undefined"){
+    // Disable buttons
+    yesBtn.disabled = true;
+    noBtn.disabled = true;
 
-        confetti({
+    // Save response (only if firebase.js is loaded)
+    if (typeof saveAnswer === "function") {
 
-            particleCount:300,
-            spread:180,
-            origin:{y:0.6}
+        saveAnswer({
+
+            name: "Haliyah",
+
+            answer: "YES",
+
+            device: navigator.platform,
+
+            browser: navigator.userAgent,
+
+            screen:
+                window.innerWidth +
+                " x " +
+                window.innerHeight
 
         });
 
     }
 
-    fireworks();
+    // Voice
+    if(typeof celebrateVoice==="function"){
 
-    const hearts=setInterval(createHeart,250);
-    const roses=setInterval(createRose,500);
+        celebrateVoice();
 
-    setTimeout(()=>{
+    }
 
-        clearInterval(hearts);
-        clearInterval(roses);
+    // Celebration effects
+    startCelebration();
 
-    },9000);
-
-    main.style.display="none";
+    proposal.style.display="none";
 
     celebration.style.display="flex";
 
-    setTimeout(showLoveLetter,6000);
+    // Wait 7 seconds
+
+    setTimeout(showLetter,7000);
 
 });
 
 /* ==========================
-   LOVE LETTER
+LOVE LETTER
 ========================== */
 
-function showLoveLetter(){
+function showLetter(){
 
     celebration.style.display="none";
 
-    letter.style.display="flex";
+    letterSection.style.display="flex";
 
-    typeLetter();
+    if(typeof letterVoice==="function"){
 
-}
-/* ==========================
-   TYPE LOVE LETTER
-========================== */
+        letterVoice();
 
-const letterText = document.getElementById("letterText");
+    }
 
-const message = `
+    const message=
 
-Dear Haliyah ❤️,
+`Dear Haliyah,
 
-From the very first day you came into my life,
-you changed it in ways I never imagined.
+From the moment you came into my life,
+you made ordinary days feel extraordinary.
 
-Your smile brightens my darkest days.
+Your smile brightens my darkest moments,
+your laughter is my favourite sound,
+and your presence makes every second worthwhile.
 
-Your laugh is my favourite sound.
+Today I ask you one simple question...
 
-Every moment with you has become a memory
-I'll treasure forever.
+Will you spend forever with me?
 
-Today...
+With all my love,
 
-I'm not asking for a perfect future.
+Joshua ❤️`;
 
-I'm asking for forever with you.
+    typeWriter(
 
-Will you make me the happiest man alive?
+        document.getElementById("letterText"),
 
-Will you marry me?
+        message,
 
-❤️
+        35,
 
-Forever Yours.
+        ()=>{
 
-`;
-
-function typeLetter(){
-
-    letterText.innerHTML="";
-
-    let i=0;
-
-    const timer=setInterval(()=>{
-
-        letterText.innerHTML+=message.charAt(i);
-
-        i++;
-
-        if(i>=message.length){
-
-            clearInterval(timer);
-
-            setTimeout(showCertificate,5000);
+            setTimeout(showCertificate,3000);
 
         }
 
-    },40);
+    );
 
 }
 
 /* ==========================
-   PROPOSAL CERTIFICATE
+CERTIFICATE
 ========================== */
 
 function showCertificate(){
 
-    letter.style.display="none";
+    letterSection.style.display="none";
 
-    const certificate=document.createElement("div");
+    certificateSection.style.display="flex";
 
-    certificate.id="certificate";
-
-    certificate.innerHTML=`
-
-    <div class="certificateCard">
-
-    <h1>❤️ OFFICIAL PROPOSAL ❤️</h1>
-
-    <h2>Presented To</h2>
-
-    <h3>Haliyah</h3>
-
-    <br>
-
-    <p>Status</p>
-
-    <h2 style="color:#00ff99">
-
-    ACCEPTED ✓
-
-    </h2>
-
-    <br>
-
-    <p>
-
-    Forever Begins Today
-
-    </p>
-
-    </div>
-
-    `;
-
-    document.body.appendChild(certificate);
-
-    setTimeout(showEnding,8000);
+    setTimeout(showEnding,6000);
 
 }
 
 /* ==========================
-   FINAL ENDING
+ENDING
 ========================== */
 
 function showEnding(){
 
-    const certificate=document.getElementById("certificate");
+    certificateSection.style.display="none";
 
-    if(certificate){
+    endingScreen.style.display="flex";
 
-        certificate.remove();
+    if(typeof endingVoice==="function"){
+
+        endingVoice();
 
     }
 
-    document.body.innerHTML+=`
-
-    <section id="ending">
-
-        <h1>
-
-        Every Love Story Is Beautiful...
-
-        </h1>
-
-        <h2>
-
-        Ours Begins Today ❤️
-
-        </h2>
-
-        <button id="shareBtn">
-
-        Share Our Happiness ❤️
-
-        </button>
-
-    </section>
-
-    `;
-
-    const end=document.getElementById("ending");
-
-    end.style.display="flex";
-
-    const share=document.getElementById("shareBtn");
-
-    share.onclick=shareLove;
-
 }
+/* ==========================================
+   SCRIPT.JS
+   BATCH 3
+==========================================*/
 
 /* ==========================
-   SHARE
+RESTART
 ========================== */
 
-function shareLove(){
+const restartBtn=document.getElementById("restartBtn");
 
-const text=
+restartBtn.addEventListener("click",()=>{
 
-"Haliyah said YES ❤️💍";
-
-if(navigator.share){
-
-navigator.share({
-
-title:"Forever Begins Today",
-
-text:text,
-
-url:window.location.href
+location.reload();
 
 });
 
-}else{
-
-navigator.clipboard.writeText(window.location.href);
-
-alert("Link copied ❤️");
-
-}
-
-}
-
 /* ==========================
-   SAVE RESPONSE
+WHATSAPP SHARE
 ========================== */
 
-function saveResponse(){
+const shareBtn=document.getElementById("shareBtn");
 
-if(typeof saveAnswer==="function"){
+shareBtn.addEventListener("click",()=>{
 
-saveAnswer({
+const message=
 
-name:"Haliyah",
+"❤️ She Said YES! ❤️";
 
-response:"YES",
+const url=
 
-time:new Date().toLocaleString(),
+"https://wa.me/?text="+
 
-device:navigator.userAgent
+encodeURIComponent(message);
+
+window.open(url,"_blank");
+
+});
+
+/* ==========================
+AUTO MUSIC
+========================== */
+
+function autoPlayMusic(){
+
+if(musicPlaying) return;
+
+bgMusic.play()
+
+.then(()=>{
+
+musicPlaying=true;
+
+musicBtn.innerHTML="🔇";
+
+})
+
+.catch(()=>{
+
+console.log("Waiting for user interaction.");
 
 });
 
 }
 
+document.addEventListener(
+
+"click",
+
+autoPlayMusic,
+
+{
+
+once:true
+
 }
 
+);
+
+document.addEventListener(
+
+"touchstart",
+
+autoPlayMusic,
+
+{
+
+once:true
+
+}
+
+);
+
 /* ==========================
-   CALL SAVE
+STOP MUSIC
 ========================== */
 
-yesBtn.addEventListener("click",()=>{
+window.addEventListener(
 
-saveResponse();
+"beforeunload",
+
+()=>{
+
+bgMusic.pause();
+
+bgMusic.currentTime=0;
+
+}
+
+);
+
+/* ==========================
+WINDOW RESIZE
+========================== */
+
+window.addEventListener(
+
+"resize",
+
+()=>{
+
+noBtn.style.left="";
+
+noBtn.style.top="";
+
+noBtn.style.position="relative";
 
 });
 
 /* ==========================
-   OPTIONAL STAR BACKGROUND
+FINAL STARTUP
 ========================== */
 
-function createStar(){
+console.log(
 
-const star=document.createElement("div");
+"PH03NIX LOVE PROTOCOL INITIALIZED ❤️"
 
-star.className="spark";
-
-star.style.left=Math.random()*100+"vw";
-
-star.style.top=Math.random()*100+"vh";
-
-star.style.opacity=Math.random();
-
-document.body.appendChild(star);
-
-setTimeout(()=>{
-
-star.remove();
-
-},5000);
-
-}
-
-setInterval(createStar,800);
-
-/* ==========================
-   END OF PART 2
-========================== */
+);
