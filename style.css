@@ -1,6 +1,9 @@
-/* ==========================
+/* ======================================
    PH03NIX LOVE PROTOCOL
-========================== */
+   STYLE.CSS
+====================================== */
+
+/* RESET */
 
 *{
 margin:0;
@@ -8,20 +11,37 @@ padding:0;
 box-sizing:border-box;
 }
 
-html,body{
-width:100%;
-height:100%;
-overflow:hidden;
-font-family:'Orbitron',sans-serif;
-background:#000;
-color:#fff;
+html{
+
+scroll-behavior:smooth;
+
 }
 
-/* Background */
+body{
 
-.background{
+width:100%;
+height:100vh;
+
+overflow:hidden;
+
+background:#000;
+
+font-family:'Orbitron',sans-serif;
+
+color:white;
+
+}
+
+/* ==========================
+BACKGROUND
+========================== */
+
+#background{
 
 position:fixed;
+
+top:0;
+left:0;
 
 width:100%;
 height:100%;
@@ -30,32 +50,37 @@ background:url("images/haliyah.jpg") center center;
 
 background-size:cover;
 
-filter:blur(14px);
+filter:blur(12px);
 
 transform:scale(1.15);
 
-z-index:-4;
+z-index:-6;
+
+animation:slowZoom 25s linear infinite alternate;
 
 }
 
-/* Dark Overlay */
-
-.overlay{
+#darkOverlay{
 
 position:fixed;
+
+top:0;
+left:0;
 
 width:100%;
 height:100%;
 
 background:rgba(0,0,0,.82);
 
-z-index:-3;
+z-index:-5;
 
 }
 
-/* HUD Grid */
+/* ==========================
+HUD GRID
+========================== */
 
-.hud-grid{
+#hudGrid{
 
 position:fixed;
 
@@ -64,37 +89,33 @@ height:100%;
 
 background:
 
-linear-gradient(rgba(0,200,255,.08) 1px, transparent 1px),
+linear-gradient(rgba(0,255,255,.05) 1px,transparent 1px),
 
-linear-gradient(90deg, rgba(0,200,255,.08) 1px, transparent 1px);
+linear-gradient(90deg,rgba(0,255,255,.05) 1px,transparent 1px);
 
-background-size:45px 45px;
+background-size:40px 40px;
+
+z-index:-4;
 
 animation:gridMove 12s linear infinite;
 
-pointer-events:none;
-
-z-index:-2;
-
 }
 
-/* Moving Scan Line */
+/* ==========================
+SCAN LINE
+========================== */
 
-.scan-line{
+#scanLine{
 
 position:fixed;
 
-top:-100%;
-
 left:0;
+top:-20%;
 
 width:100%;
-
 height:120px;
 
 background:linear-gradient(
-
-to bottom,
 
 transparent,
 
@@ -108,17 +129,63 @@ animation:scan 5s linear infinite;
 
 pointer-events:none;
 
+z-index:-3;
+
 }
 
-/* Music Button */
+/* ==========================
+TOP BAR
+========================== */
 
-#musicBtn{
+#topBar{
 
 position:fixed;
 
-top:20px;
+top:0;
 
-left:20px;
+left:0;
+
+width:100%;
+
+padding:18px 25px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+z-index:999;
+
+}
+
+#logo{
+
+font-size:24px;
+
+font-weight:700;
+
+letter-spacing:3px;
+
+color:cyan;
+
+text-shadow:
+
+0 0 10px cyan,
+
+0 0 25px cyan;
+
+}
+
+#controls{
+
+display:flex;
+
+gap:12px;
+
+}
+
+#musicBtn{
 
 width:55px;
 
@@ -126,9 +193,9 @@ height:55px;
 
 border-radius:50%;
 
-background:#000;
-
 border:2px solid cyan;
+
+background:#000;
 
 color:cyan;
 
@@ -136,17 +203,25 @@ font-size:22px;
 
 cursor:pointer;
 
+transition:.3s;
+
 box-shadow:
 
-0 0 20px cyan;
-
-z-index:999;
+0 0 18px cyan;
 
 }
 
-/* Boot Screen */
+#musicBtn:hover{
 
-#boot{
+transform:scale(1.1);
+
+}
+
+/* ==========================
+BOOT SCREEN
+========================== */
+
+#bootScreen{
 
 position:absolute;
 
@@ -156,115 +231,93 @@ height:100%;
 
 display:flex;
 
-flex-direction:column;
-
 justify-content:center;
 
 align-items:center;
 
-text-align:center;
-
 }
 
-#boot h1{
+#bootBox{
 
-font-size:42px;
+width:90%;
 
-color:cyan;
+max-width:760px;
 
-text-shadow:
+padding:35px;
 
-0 0 15px cyan,
+border:2px solid cyan;
+
+border-radius:18px;
+
+background:rgba(0,0,0,.55);
+
+backdrop-filter:blur(8px);
+
+box-shadow:
 
 0 0 35px cyan;
 
-margin-bottom:40px;
+}
+
+#bootBox h1{
+
+text-align:center;
+
+color:cyan;
+
+margin-bottom:35px;
+
+font-size:38px;
+
+text-shadow:
+
+0 0 20px cyan;
 
 }
 
 #terminal{
 
-background:rgba(0,0,0,.55);
+display:flex;
 
-padding:35px;
+flex-direction:column;
 
-width:85%;
-
-max-width:700px;
-
-border:2px solid cyan;
-
-border-radius:20px;
-
-box-shadow:
-
-0 0 25px cyan;
+gap:15px;
 
 }
 
-.line{
+.bootLine{
 
 opacity:0;
 
-margin:18px;
+font-size:19px;
 
-font-size:20px;
-
-animation:type 1s forwards;
+animation:fadeLine .8s forwards;
 
 }
 
-.line:nth-child(1){
+.bootLine:nth-child(1){animation-delay:.5s;}
+.bootLine:nth-child(2){animation-delay:1.2s;}
+.bootLine:nth-child(3){animation-delay:2s;}
+.bootLine:nth-child(4){animation-delay:2.8s;}
+.bootLine:nth-child(5){animation-delay:3.6s;}
+.bootLine:nth-child(6){animation-delay:4.4s;}
+.bootLine:nth-child(7){animation-delay:5.2s;}
+.bootLine:nth-child(8){animation-delay:6s;}
+.bootLine:nth-child(9){animation-delay:6.8s;}
 
-animation-delay:0s;
+.green{
 
-}
+color:#00ff99;
 
-.line:nth-child(2){
+text-shadow:
 
-animation-delay:1s;
-
-}
-
-.line:nth-child(3){
-
-animation-delay:2s;
-
-}
-
-.line:nth-child(4){
-
-animation-delay:3s;
+0 0 12px #00ff99;
 
 }
 
-.line:nth-child(5){
+.pink{
 
-animation-delay:4s;
-
-}
-
-.line:nth-child(6){
-
-animation-delay:5s;
-
-}
-
-.line:nth-child(7){
-
-animation-delay:6s;
-
-}
-
-.success{
-
-color:#00ff88;
-
-}
-
-.glow{
-
-color:#ff66c4;
+color:#ff69b4;
 
 text-shadow:
 
@@ -272,227 +325,9 @@ text-shadow:
 
 }
 
-/* Main */
-
-#main{
-
-display:none;
-
-position:absolute;
-
-width:100%;
-
-height:100%;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-text-align:center;
-
-padding:25px;
-
-}
-
-/* Name */
-
-#name{
-
-font-family:'Great Vibes',cursive;
-
-font-size:80px;
-
-color:#ff66cc;
-
-text-shadow:
-
-0 0 20px hotpink,
-
-0 0 50px hotpink;
-
-margin-bottom:15px;
-
-}
-
-/* Question */
-
-#question{
-
-font-size:55px;
-
-color:cyan;
-
-margin-bottom:25px;
-
-text-shadow:
-
-0 0 20px cyan;
-
-}
-
-/* Subtitle */
-
-#subtitle{
-
-font-size:22px;
-
-width:85%;
-
-max-width:700px;
-
-line-height:38px;
-
-margin-bottom:50px;
-
-}
-
-/* Buttons */
-
-.buttons{
-
-display:flex;
-
-gap:30px;
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-}
-
-button{
-
-padding:18px 45px;
-
-font-size:22px;
-
-border-radius:14px;
-
-cursor:pointer;
-
-transition:.3s;
-
-font-weight:bold;
-
-}
-
-/* Yes */
-
-#yesBtn{
-
-background:#00c8ff;
-
-border:2px solid cyan;
-
-color:white;
-
-box-shadow:
-
-0 0 25px cyan;
-
-}
-
-/* No */
-
-#noBtn{
-
-background:#ff2c91;
-
-border:2px solid hotpink;
-
-color:white;
-
-box-shadow:
-
-0 0 20px hotpink;
-
-}
-
-/* Celebration */
-
-#celebration{
-
-display:none;
-
-position:absolute;
-
-width:100%;
-
-height:100%;
-
-justify-content:center;
-
-align-items:center;
-
-flex-direction:column;
-
-text-align:center;
-
-}
-
-#celebration h1{
-
-font-size:70px;
-
-color:#ff66cc;
-
-text-shadow:
-
-0 0 25px hotpink;
-
-}
-
-#celebration p{
-
-margin-top:25px;
-
-font-size:28px;
-
-}
-
-/* Letter */
-
-#letter{
-
-display:none;
-
-position:absolute;
-
-width:100%;
-
-height:100%;
-
-justify-content:center;
-
-align-items:center;
-
-}
-
-.paper{
-
-background:white;
-
-color:black;
-
-padding:35px;
-
-width:85%;
-
-max-width:650px;
-
-border-radius:15px;
-
-font-family:Georgia,serif;
-
-line-height:36px;
-
-}
-
-/* Animations */
+/* ==========================
+ANIMATIONS
+========================== */
 
 @keyframes scan{
 
@@ -520,13 +355,13 @@ transform:translateY(0);
 
 100%{
 
-transform:translateY(45px);
+transform:translateY(40px);
 
 }
 
 }
 
-@keyframes type{
+@keyframes fadeLine{
 
 from{
 
@@ -546,25 +381,336 @@ transform:translateX(0);
 
 }
 
-/* Mobile */
+@keyframes slowZoom{
 
-@media(max-width:700px){
+from{
 
-#boot h1{
-
-font-size:28px;
+transform:scale(1.15);
 
 }
 
-#name{
+to{
 
-font-size:58px;
+transform:scale(1.25);
+
+}
+
+}
+/* ==========================
+PROPOSAL SCREEN
+========================== */
+
+#proposal{
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100vh;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+padding:20px;
+
+}
+
+#centerBox{
+
+width:95%;
+max-width:850px;
+
+padding:35px;
+
+border:2px solid rgba(0,255,255,.4);
+
+border-radius:20px;
+
+background:rgba(0,0,0,.35);
+
+backdrop-filter:blur(12px);
+
+box-shadow:
+
+0 0 30px rgba(0,255,255,.35);
+
+}
+
+/* ==========================
+NAME
+========================== */
+
+#girlName{
+
+font-family:'Great Vibes',cursive;
+
+font-size:85px;
+
+color:#ff69b4;
+
+margin-bottom:20px;
+
+text-shadow:
+
+0 0 15px hotpink,
+
+0 0 35px hotpink,
+
+0 0 60px hotpink;
+
+}
+
+/* ==========================
+QUESTION
+========================== */
+
+#question{
+
+font-size:54px;
+
+font-weight:700;
+
+color:cyan;
+
+margin-bottom:25px;
+
+text-shadow:
+
+0 0 20px cyan;
+
+}
+
+/* ==========================
+SUBTITLE
+========================== */
+
+#subtitle{
+
+font-size:22px;
+
+line-height:38px;
+
+max-width:700px;
+
+margin:auto;
+
+margin-bottom:50px;
+
+color:#dddddd;
+
+}
+
+/* ==========================
+BUTTON AREA
+========================== */
+
+#buttonArea{
+
+display:flex;
+
+justify-content:center;
+
+gap:30px;
+
+flex-wrap:wrap;
+
+}
+
+/* ==========================
+BUTTONS
+========================== */
+
+#yesBtn,
+#noBtn{
+
+padding:18px 55px;
+
+font-size:22px;
+
+font-weight:bold;
+
+border-radius:14px;
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+#yesBtn{
+
+background:#00d0ff;
+
+border:2px solid cyan;
+
+color:white;
+
+box-shadow:
+
+0 0 20px cyan,
+
+0 0 40px cyan;
+
+}
+
+#yesBtn:hover{
+
+transform:scale(1.08);
+
+box-shadow:
+
+0 0 35px cyan,
+
+0 0 70px cyan;
+
+}
+
+#noBtn{
+
+background:#ff2b6b;
+
+border:2px solid hotpink;
+
+color:white;
+
+position:relative;
+
+box-shadow:
+
+0 0 20px hotpink;
+
+}
+
+/* ==========================
+CELEBRATION
+========================== */
+
+#celebration{
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100vh;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+#celebration h1{
+
+font-size:72px;
+
+color:#ff69b4;
+
+text-shadow:
+
+0 0 25px hotpink,
+
+0 0 50px hotpink;
+
+}
+
+#celebration p{
+
+font-size:30px;
+
+margin-top:20px;
+
+color:white;
+
+}
+
+/* ==========================
+LOVE LETTER
+========================== */
+
+#letterSection{
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100vh;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+padding:20px;
+
+}
+
+#letterPaper{
+
+background:#fff;
+
+color:#000;
+
+padding:40px;
+
+width:90%;
+
+max-width:700px;
+
+border-radius:15px;
+
+font-family:Georgia,serif;
+
+line-height:38px;
+
+box-shadow:
+
+0 0 40px rgba(255,255,255,.35);
+
+}
+
+#letterPaper h2{
+
+text-align:center;
+
+margin-bottom:25px;
+
+color:#e91e63;
+
+}
+
+/* ==========================
+MOBILE
+========================== */
+
+@media(max-width:768px){
+
+#girlName{
+
+font-size:60px;
 
 }
 
 #question{
 
-font-size:34px;
+font-size:36px;
 
 }
 
@@ -576,119 +722,474 @@ line-height:30px;
 
 }
 
-button{
+#yesBtn,
+#noBtn{
 
-width:150px;
-
-font-size:18px;
-
-}
-
-.paper{
+width:160px;
 
 font-size:18px;
 
+padding:16px;
+
+}
+
+#bootBox h1{
+
+font-size:28px;
+
+}
+
+#terminal{
+
+font-size:16px;
+
+}
+
+#celebration h1{
+
+font-size:42px;
+
+}
+
+#letterPaper{
+
+padding:25px;
+
+line-height:30px;
+
 }
 
 }
-/* Hearts */
-.heart{
-position:fixed;
-bottom:-40px;
-width:18px;
-height:18px;
-background:#ff4da6;
-transform:rotate(45deg);
-animation:heartFloat linear forwards;
-box-shadow:0 0 15px hotpink;
-}
+/* ==========================
+PROPOSAL CERTIFICATE
+========================== */
 
-.heart::before,
-.heart::after{
-content:"";
+#certificateSection{
+
 position:absolute;
-width:18px;
-height:18px;
-background:#ff4da6;
-border-radius:50%;
-}
 
-.heart::before{
-top:-9px;
-left:0;
-}
-
-.heart::after{
-left:-9px;
 top:0;
+left:0;
+
+width:100%;
+height:100vh;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+padding:20px;
+
 }
 
-/* Roses */
-.rose{
-position:fixed;
-top:-40px;
-width:18px;
-height:18px;
-border-radius:50%;
-background:#ff003c;
-box-shadow:0 0 20px red;
-animation:roseFall linear forwards;
+#certificateCard{
+
+width:90%;
+max-width:700px;
+
+padding:40px;
+
+border-radius:20px;
+
+background:rgba(0,0,0,.55);
+
+border:2px solid gold;
+
+text-align:center;
+
+box-shadow:
+
+0 0 20px gold,
+
+0 0 50px rgba(255,215,0,.5);
+
+backdrop-filter:blur(12px);
+
 }
 
-/* Tears */
-.tear{
-position:fixed;
-top:-20px;
-width:8px;
-height:18px;
+#certificateCard h1{
+
+color:gold;
+
+margin-bottom:20px;
+
+font-size:38px;
+
+text-shadow:0 0 15px gold;
+
+}
+
+#certificateCard h2{
+
+margin:10px 0;
+
+}
+
+.statusTitle{
+
+margin-top:20px;
+
+color:#ccc;
+
+}
+
+#certificateStatus{
+
+color:#00ff99;
+
+text-shadow:0 0 12px #00ff99;
+
+}
+
+/* ==========================
+ENDING SCREEN
+========================== */
+
+#endingScreen{
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100vh;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+flex-direction:column;
+
+padding:20px;
+
+}
+
+#endingContent h1{
+
+font-size:48px;
+
+color:white;
+
+margin-bottom:15px;
+
+}
+
+#endingContent h2{
+
+font-size:34px;
+
+color:#ff69b4;
+
+margin-bottom:40px;
+
+text-shadow:0 0 15px hotpink;
+
+}
+
+#shareBtn,
+#restartBtn{
+
+padding:16px 40px;
+
+margin:10px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+#shareBtn{
+
 background:cyan;
-border-radius:50%;
-animation:tearFall linear forwards;
+
+color:#000;
+
 }
 
-/* Sparkles */
-.spark{
+#restartBtn{
+
+background:#ff69b4;
+
+color:white;
+
+}
+
+#shareBtn:hover,
+#restartBtn:hover{
+
+transform:scale(1.05);
+
+}
+
+/* ==========================
+SECRET MESSAGE
+========================== */
+
+#secretMessage{
+
 position:fixed;
-width:4px;
-height:4px;
-border-radius:50%;
-background:white;
-box-shadow:0 0 12px cyan;
-animation:sparkFade 2.5s linear forwards;
+
+left:50%;
+
+top:50%;
+
+transform:translate(-50%,-50%);
+
+width:90%;
+
+max-width:500px;
+
+padding:25px;
+
+background:rgba(0,0,0,.9);
+
+border:2px solid hotpink;
+
+border-radius:18px;
+
+text-align:center;
+
+display:none;
+
+z-index:9999;
+
+box-shadow:0 0 25px hotpink;
+
 }
 
-/* Animations */
-@keyframes heartFloat{
-0%{
-transform:translateY(0) rotate(45deg);
-opacity:1;
+/* ==========================
+LOADING SCREEN
+========================== */
+
+#loadingScreen{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:#000;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+z-index:10000;
+
 }
+
+.loader{
+
+width:70px;
+
+height:70px;
+
+border:6px solid rgba(255,255,255,.15);
+
+border-top:6px solid cyan;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+margin-bottom:25px;
+
+}
+
+@keyframes spin{
+
 100%{
-transform:translateY(-120vh) rotate(45deg);
-opacity:0;
+
+transform:rotate(360deg);
+
 }
+
+}
+
+/* ==========================
+FOOTER
+========================== */
+
+#footer{
+
+position:fixed;
+
+bottom:12px;
+
+width:100%;
+
+text-align:center;
+
+font-size:14px;
+
+color:#aaa;
+
+}
+
+#footer span{
+
+color:cyan;
+
+text-shadow:0 0 8px cyan;
+
+}
+
+/* ==========================
+HEARTS
+========================== */
+
+.heart{
+
+position:fixed;
+
+bottom:-30px;
+
+font-size:24px;
+
+animation:heartFloat linear forwards;
+
+pointer-events:none;
+
+}
+
+@keyframes heartFloat{
+
+0%{
+
+transform:translateY(0);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translateY(-120vh);
+
+opacity:0;
+
+}
+
+}
+
+/* ==========================
+ROSES
+========================== */
+
+.rose{
+
+position:fixed;
+
+top:-30px;
+
+font-size:22px;
+
+animation:roseFall linear forwards;
+
+pointer-events:none;
+
 }
 
 @keyframes roseFall{
-0%{
-transform:translateY(0) rotate(0deg);
-}
+
 100%{
+
 transform:translateY(120vh) rotate(720deg);
+
 opacity:0;
-}
+
 }
 
-@keyframes tearFall{
-100%{
-transform:translateY(120vh);
-opacity:0;
 }
+
+/* ==========================
+SPARKLES
+========================== */
+
+.spark{
+
+position:fixed;
+
+width:4px;
+
+height:4px;
+
+background:white;
+
+border-radius:50%;
+
+box-shadow:0 0 10px cyan;
+
+animation:sparkFade 2s linear forwards;
+
+pointer-events:none;
+
 }
 
 @keyframes sparkFade{
+
 100%{
-transform:scale(3);
+
+transform:scale(4);
+
 opacity:0;
+
+}
+
+}
+
+/* ==========================
+TEARS
+========================== */
+
+.tear{
+
+position:fixed;
+
+width:8px;
+
+height:18px;
+
+background:cyan;
+
+border-radius:50%;
+
+animation:tearFall 3s linear forwards;
+
+pointer-events:none;
+
+}
+
+@keyframes tearFall{
+
+100%{
+
+transform:translateY(120vh);
+
+opacity:0;
+
 }
 }
