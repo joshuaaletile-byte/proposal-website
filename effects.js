@@ -111,4 +111,4 @@ function fireworks(){
 }
 
 // Continuous Effects
-setInterval(sparkle,3000);
+setInterval(sparkl
