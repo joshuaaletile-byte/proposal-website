@@ -1,78 +1,164 @@
-// ==============================
-// PH03NIX LOVE PROTOCOL - Voice
-// ==============================
+/* ==========================================
+   PH03NIX LOVE PROTOCOL
+   voice.js
+========================================== */
 
-let introPlayed = false;
+let voiceStarted = false;
 
-const speech = window.speechSynthesis;
+const synth = window.speechSynthesis;
 
 function speak(text, callback = null) {
 
-    speech.cancel();
+    synth.cancel();
 
-    const msg = new SpeechSynthesisUtterance(text);
+    const speech = new SpeechSynthesisUtterance(text);
 
-    msg.lang = "en-US";
-    msg.rate = 0.9;
-    msg.pitch = 1;
-    msg.volume = 1;
+    speech.lang = "en-US";
+    speech.rate = 0.92;
+    speech.pitch = 1;
+    speech.volume = 1;
 
-    // Try to use a female voice if one exists
-    const voices = speech.getVoices();
-    const female =
-        voices.find(v => v.name.toLowerCase().includes("female")) ||
-        voices.find(v => v.name.toLowerCase().includes("zira")) ||
-        voices.find(v => v.name.toLowerCase().includes("samantha")) ||
-        voices.find(v => v.name.toLowerCase().includes("google"));
+    const voices = synth.getVoices();
 
-    if (female) {
-        msg.voice = female;
+    // Prefer a female voice if available
+    const preferred =
+        voices.find(v => v.name.includes("Google UK English Female")) ||
+        voices.find(v => v.name.includes("Samantha")) ||
+        voices.find(v => v.name.includes("Zira")) ||
+        voices.find(v => v.name.includes("Google"));
+
+    if (preferred) {
+        speech.voice = preferred;
     }
 
-    msg.onend = () => {
+    speech.onend = () => {
         if (callback) callback();
     };
 
-    speech.speak(msg);
+    synth.speak(speech);
 }
 
-// Some browsers load voices later
-speech.onvoiceschanged = () => {
-    speech.getVoices();
+// Load voices when available
+speechSynthesis.onvoiceschanged = () => {
+    speechSynthesis.getVoices();
 };
 
-function startIntroVoice() {
+/* ==========================================
+   INTRODUCTION
+========================================== */
 
-    if (introPlayed) return;
+function startVoiceIntro() {
 
-    introPlayed = true;
+    if (voiceStarted) return;
+
+    voiceStarted = true;
 
     speak(
-        "Hello Haliyah. Someone has something very special to ask you today.",
+        "Hello Haliyah.",
         () => {
 
             setTimeout(() => {
 
                 speak(
-                    "Please stay for just a moment. This message comes from someone who truly cares about you.",
+                    "Someone has prepared something very special for you today.",
                     () => {
 
                         setTimeout(() => {
 
                             speak(
-                                "Good luck..."
-                            );
+                                "Please enjoy every moment.",
+                                () => {
 
-                        },1000);
+                                    setTimeout(() => {
+
+                                        speak(
+                                            "Good luck."
+                                        );
+
+                                    },800);
+
+                                });
+
+                        },600);
 
                     });
 
-            },800);
+            },600);
 
         });
 
 }
 
-// First tap starts everything
-document.addEventListener("click", startIntroVoice, { once:true });
-document.addEventListener("touchstart", startIntroVoice, { once:true });
+/* ==========================================
+   AFTER YES
+========================================== */
+
+function celebrateVoice(){
+
+    speak(
+
+        "Congratulations. Response confirmed. Beginning forever."
+
+    );
+
+}
+
+/* ==========================================
+   LOVE LETTER
+========================================== */
+
+function letterVoice(){
+
+    speak(
+
+        "This letter comes from the heart."
+
+    );
+
+}
+
+/* ==========================================
+   ENDING
+========================================== */
+
+function endingVoice(){
+
+    speak(
+
+        "Every love story is beautiful. Yours begins today."
+
+    );
+
+}
+
+/* ==========================================
+   FIRST USER INTERACTION
+========================================== */
+
+document.addEventListener(
+
+    "click",
+
+    startVoiceIntro,
+
+    {
+
+        once:true
+
+    }
+
+);
+
+document.addEventListener(
+
+    "touchstart",
+
+    startVoiceIntro,
+
+    {
+
+        once:true
+
+    }
+
+);
